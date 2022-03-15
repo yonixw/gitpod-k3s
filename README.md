@@ -50,4 +50,4 @@ avoid the extra steps.
 
 - 7 min from gitpod clone to k3s ready
 - 3 min to stop (copy 20GB image...)
-- 4 min to restart (reinstall qemu everytime + start qemu)
+- 4-5 min to restart (reinstall qemu everytime + start qemu)

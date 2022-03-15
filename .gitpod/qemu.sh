@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Reinstall on workprace start
+bash .gitpod/install_req_apt.sh
+
 set -xeuo pipefail
 
 script_dirname="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"

@@ -9,5 +9,4 @@ tasks:
       .gitpod/install_req_apt.sh
       .gitpod/prepare-rootfs.sh
     command: |
-      .gitpod/install_req_apt.sh 
       .gitpod/qemu.sh
