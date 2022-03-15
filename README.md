@@ -20,14 +20,12 @@ At start, the workspace will start a VM in your gitpod workspace and
 automatically install k3s on it. Your local environment will be automatically
 configured to use that via the `kubectl`
 
-
 ### Connecting via kubectl
 
 When you open your workspace terminal, the `kubectl` is already configured for you
 via the `~/.kube/config` file.
 
 ### Kubectl from my local terminal
-
 
 ### Connecting via SSH
 
@@ -43,3 +41,12 @@ ssh -p 2222 root@127.0.0.1
 
 You can use the `.gitpod/ssh.sh` and `.gitpod/scp.sh` scripts if you want to
 avoid the extra steps.
+
+## Exit qemu
+
+`Ctrl + A` and then `X`
+
+# Timings
+
+- 7 min from gitpod clone to k3s ready
+-
