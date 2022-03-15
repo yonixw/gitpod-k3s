@@ -18,12 +18,6 @@ cd $outdir
 
 tar -xvf rootfs.tar.gz
 
-qemu-img resize hirsute-server-cloudimg-amd64.img +20G
-
-sudo virt-customize -a hirsute-server-cloudimg-amd64.img --run-command 'resize2fs /dev/sda'
-
-sudo virt-customize -a hirsute-server-cloudimg-amd64.img --root-password password:root
-
 netconf="
 network:
   version: 2
@@ -33,16 +27,20 @@ network:
       dhcp4: yes
 "
 
-# networking setup
-sudo virt-customize -a hirsute-server-cloudimg-amd64.img --run-command "echo '${netconf}' > /etc/netplan/01-net.yaml"
+sudo virt-customize -a hirsute-server-cloudimg-amd64.img --root-password password:root
+
+qemu-img resize hirsute-server-cloudimg-amd64.img +20G
 
 # copy kernel modules
 sudo virt-customize -a hirsute-server-cloudimg-amd64.img --copy-in /lib/modules/$(uname -r):/lib/modules
 
 # ssh
-sudo virt-customize -a hirsute-server-cloudimg-amd64.img --run-command 'apt remove openssh-server -y && apt install openssh-server -y'
-sudo virt-customize -a hirsute-server-cloudimg-amd64.img --run-command "sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config"
-sudo virt-customize -a hirsute-server-cloudimg-amd64.img --run-command "sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config"
+sudo virt-customize -a hirsute-server-cloudimg-amd64.img --run-command \
+    "resize2fs /dev/sda && \
+    echo '${netconf}' > /etc/netplan/01-net.yaml && \
+    apt remove openssh-server -y && apt install openssh-server -y && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config"
 
 # mark as ready
 touch rootfs-ready.lock
