@@ -4,9 +4,13 @@ tasks:
   - name: k3s
     command: |
       .gitpod/prepare-k3s.sh
+      .create-user/get_remote_user.sh
   - name: qemu
     init: |
       .gitpod/install_req_apt.sh
       .gitpod/prepare-rootfs.sh
     command: |
       .gitpod/qemu.sh
+  - name : k3s-proxy
+    command: |
+      docker run --rm --network host caddy caddy reverse-proxy --insecure --change-host-header --from :6600 --to https://127.0.0.1:6443

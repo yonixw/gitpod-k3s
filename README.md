@@ -53,21 +53,15 @@ kubectl get services #  8080:30653/TCP
 kubectl port-forward service/hello-node 6666:8080 # local:service
 ```
 
-# Azure Devops
+# Connect from outside
 
-To get access:
+One of the tasks create a port forwared to port 6600.
 
-1. Run httpS -> http (gitpod) -> httpS (caddy)
+After the k3s is ready, run `bash create-user/get_remote_user.sh`
 
-- `docker run --rm --network host caddy caddy reverse-proxy --insecure --change-host-header --from :6600 --to https://127.0.0.1:6443`
+and then just copy the content of `deploy-robot.kubectl.yaml` (also done by a task)
 
-2. Deploy `serviceAccount.yaml`
-
-- `kubectl apply -f serviceAccount.yaml`
-
-3. Get Secret
-
-- `kubectl get secret $(kubectl get serviceAccount deploy-robot -o=jsonpath={.secrets[*].name}) -o json`
+_Note:_ It has only access to `default` namespace.
 
 # Timings
 
