@@ -53,6 +53,22 @@ kubectl get services #  8080:30653/TCP
 kubectl port-forward service/hello-node 6666:8080 # local:service
 ```
 
+# Azure Devops
+
+To get access:
+
+1. Run httpS -> http (gitpod) -> httpS (caddy)
+
+- `docker run --rm --network host caddy caddy reverse-proxy --insecure --change-host-header --from :6600 --to https://127.0.0.1:6443`
+
+2. Deploy `serviceAccount.yaml`
+
+- `kubectl apply -f serviceAccount.yaml`
+
+3. Get Secret
+
+- `kubectl get secret $(kubectl get serviceAccount deploy-robot -o=jsonpath={.secrets[*].name}) -o json`
+
 # Timings
 
 - 7 min from gitpod clone to k3s ready
