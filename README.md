@@ -46,6 +46,13 @@ avoid the extra steps.
 
 `Ctrl + A` and then `X`
 
+## Port forwared:
+
+```
+kubectl get services #  8080:30653/TCP
+kubectl port-forward service/hello-node 6666:8080 # local:service
+```
+
 # Timings
 
 - 7 min from gitpod clone to k3s ready
