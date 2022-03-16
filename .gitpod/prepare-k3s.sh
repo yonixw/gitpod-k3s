@@ -11,7 +11,12 @@ k3sreadylock="${script_dirname}/_output/rootfs/k3s-ready.lock"
 cd $script_dirname
 
 function waitssh() {
-  while ! nc -z 127.0.0.1 2222; do   
+  while ! which nc ; do   
+    echo "Waiting for nc to install"
+    sleep 1
+  done
+  echo "Connecting to ssh"
+  while ! nc -z 127.0.0.1 2222 ; do   
     sleep 0.1
   done
   ./ssh.sh "whoami" &>/dev/null
