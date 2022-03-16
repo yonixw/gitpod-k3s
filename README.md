@@ -46,22 +46,19 @@ avoid the extra steps.
 
 `Ctrl + A` and then `X`
 
-## Port forwared:
+## Port forwared k3s:
 
 ```
 kubectl get services #  8080:30653/TCP
 kubectl port-forward service/hello-node 6666:8080 # local:service
 ```
 
-# Connect from outside
+# Connect to k3s from outside the gitpod
 
-One of the tasks create a port forwared to port 6600.
+1. A task auto create a port forwared to port 6600.
+2. The k3s task create `deploy-robot` user with cred in `deploy-robot.kubectl.yaml`
 
-After the k3s is ready, run `bash create-user/get_remote_user.sh`
-
-and then just copy the content of `deploy-robot.kubectl.yaml` (also done by a task)
-
-_Note:_ It has only access to `default` namespace.
+_Note:_ User `deploy-robot` has only access to `default` namespace.
 
 # Timings
 

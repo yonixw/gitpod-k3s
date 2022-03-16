@@ -1,10 +1,15 @@
 image: gitpod/workspace-full
 checkoutLocation: gitpod-k3s
+ports:
+  - port: 6600
+    visibility: public
 tasks:
   - name: k3s
     command: |
+      echo "Start load time, $(date)" >> .gitpod/_output/timing
       bash .gitpod/prepare-k3s.sh
-      bash .create-user/get_remote_user.sh
+      bash create-user/get_remote_user.sh
+      echo "End load time, $(date)" >> .gitpod/_output/timing
   - name: qemu
     before: |
       bash .gitpod/install_req_apt.sh

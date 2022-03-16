@@ -6,6 +6,7 @@ clusters:
 contexts:
 - context:
     cluster:  XXX0
+    namespace: default
     user: deploy-robot
   name:  XXX0
 current-context:  XXX0
